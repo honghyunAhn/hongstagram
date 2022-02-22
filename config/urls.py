@@ -16,6 +16,9 @@ urlpatterns = [
     
     # /
     path("", include("hongstagram.users.urls", namespace="users")),
+    
+    # /signup
+    path("signup",include("hongstagram.users.urls", namespace="signup")),
 
     # /posts/
     path("posts/", include("hongstagram.posts.urls", namespace="posts"))
