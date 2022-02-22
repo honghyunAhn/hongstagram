@@ -47,7 +47,10 @@ body {
     border: 1px solid #efefef;
     font-family: 'Roboto', sans-serif;
 }
-
+.auth_link a{
+    position: relative;
+    top: 15px;
+}
 /* footer */
 footer {
     width: 100%;
