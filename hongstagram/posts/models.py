@@ -5,9 +5,9 @@ class TimeStamedModel(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-    class Mete:
+    class Meta:
         abstract = True
-class Post():
+class Post(TimeStamedModel):
     author = models.ForeignKey(
                 user_model.User, 
                 null=True, 
@@ -15,15 +15,15 @@ class Post():
                 related_name='post_author'
             )
     image = models.ImageField(blank=True)
-    caption = models.models.TextField(blank=True)
+    caption = models.TextField(blank=True)
     image_likes = models.ManyToManyField(user_model.User, related_name="post_image_likes")
 
-class Comment():
+class Comment(TimeStamedModel):
     author = models.ForeignKey(
                 user_model.User, 
                 null=True, 
                 on_delete=models.CASCADE, 
-                related_name='post_author'
+                related_name='comment_author'
             )
     posts  = models.ForeignKey(
                 Post, 
