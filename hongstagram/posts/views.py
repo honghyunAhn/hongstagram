@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from hongstagram.users.models import User as user_model
 
-from hongstagram.users import models
+from . import models
 
 # Create your views here.
 def index(request):
