@@ -16,7 +16,7 @@ def index(request):
             following = user.following.all()
             posts = models.Post.objects.filter(
                 Q(author__in=following) | Q(author=user)
-            )
+            ).order_by("-create_at")
 
             serializer = serializers.PostSerializer(posts, many=True)
 
@@ -80,7 +80,12 @@ def post_update(request, post_id):
             return render(request, 'posts/post_update.html', {"form":form, "post":post})
 
         elif request.method == 'POST':
-            pass
+            form =  UpdatePostForm(request.POST)
+            if form.is_valid():
+                post.caption = form.cleaned_data['caption']
+                post.save()
+
+            return redirect(reverse('posts:index'))
     else:
         return render(request, 'users/main.html')
     
