@@ -53,7 +53,7 @@ body {
 }
 /* footer */
 footer {
-    width: 100%;
+    width: 99%;
     position: absolute;
     bottom: 0;
     display: flex;
