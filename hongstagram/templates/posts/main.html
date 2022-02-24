@@ -20,7 +20,11 @@
 
             <div class="icon">
                 <i class="fa fa-pencil fa1x"></i>
-                <i class="fa fa-trash-o fa1x"></i>
+                {% if user.id == post.author.id %}
+                <a href="{% url 'posts:post_delete' post.id %}">
+                    <i class="fa fa-trash-o fa1x"></i>
+                </a>
+                {% endif %}
             </div>
 
         </div>
