@@ -131,3 +131,12 @@
     background-color: #00376b;
     color: white;
 }
+
+.heartcolor{
+    color: red;
+}
+
+.heart_button {
+    background-color: transparent;
+    border: none;
+}
