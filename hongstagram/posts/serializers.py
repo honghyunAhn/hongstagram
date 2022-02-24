@@ -1,13 +1,6 @@
 from rest_framework import serializers
 from hongstagram.users.models import User as user_model
 from . import models
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Comment
-        fields = (
-            "id",
-            "contents",
-        )
 
 
 class FeedAuthorSerializer(serializers.ModelSerializer):
@@ -19,6 +12,15 @@ class FeedAuthorSerializer(serializers.ModelSerializer):
             "profile_photo",
         )
 
+class CommentSerializer(serializers.ModelSerializer):
+    author = FeedAuthorSerializer()
+    class Meta:
+        model = models.Comment
+        fields = (
+            "id",
+            "contents",
+            "author"
+        )
 
 class PostSerializer(serializers.ModelSerializer):
     comment_post = CommentSerializer(many=True)
