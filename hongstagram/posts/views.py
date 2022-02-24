@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from hongstagram.users.models import User as user_model
 from . import models, serializers
-from .forms import CreatePostForm, CommentForm
+from .forms import CreatePostForm, CommentForm, UpdatePostForm
 
 # Create your views here.
 def index(request):
@@ -56,6 +56,7 @@ def post_create(request):
 
         else:
             return render(request, 'users/main.html')
+        
 def post_delete(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(models.Post, pk=post_id)
@@ -65,6 +66,24 @@ def post_delete(request, post_id):
         return redirect(reverse('posts:index'))
     else:
         return render(request, 'users/main.html')
+    
+def post_update(request, post_id):
+    if request.user.is_authenticated:
+        post = get_object_or_404(models.Post, pk=post_id)
+        # 작성자 체크
+        if request.user != post.author:
+            return redirect(reverse('posts:index'))
+
+        # GET 요청
+        if request.method == 'GET':
+            form = UpdatePostForm(instance = post)
+            return render(request, 'posts/post_update.html', {"form":form, "post":post})
+
+        elif request.method == 'POST':
+            pass
+    else:
+        return render(request, 'users/main.html')
+    
 def comment_create(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(models.Post, pk=post_id)
