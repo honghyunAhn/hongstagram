@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from yaml import serialize
 from hongstagram.posts.forms import CreatePostForm
 from hongstagram.users.models import User as user_model
 from django.db.models import Q
 
-from . import models
+from . import models, serializers
 from .forms import CreatePostForm
 
 # Create your views here.
@@ -15,7 +16,10 @@ def index(request):
             posts = models.Post.objects.filter(
                 Q(author__in=following) | Q(author=user)
             )
-            return render(request, 'posts/base.html')
+            
+            serializer = serializers.PostSerializer(posts, many=True)
+            
+            return render(request, 'posts/main.html', {"posts":serializer.data})
 
 def post_create(request):
     if request.method == 'GET':
