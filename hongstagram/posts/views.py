@@ -19,7 +19,6 @@ def index(request):
             )
 
             serializer = serializers.PostSerializer(posts, many=True)
-            print(serializer.data)
 
             return render(
                 request,
